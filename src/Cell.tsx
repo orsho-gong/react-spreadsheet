@@ -165,7 +165,8 @@ export const enhance = (
         : null;
     });
 
-    const useReadOnlyStyle = props.useReadOnlyStyle ?? true;
+    const useReadOnlyStyle =
+      props.useReadOnlyStyle === undefined ? true : props.useReadOnlyStyle;
 
     return (
       <CellComponent
