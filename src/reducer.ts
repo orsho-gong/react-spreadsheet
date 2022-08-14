@@ -182,6 +182,13 @@ const reducer = createReducer(INITIAL_STATE, (builder) => {
 
         const currentValue = Matrix.get(nextPoint, nextData) || null;
 
+        if (currentValue?.readOnly) {
+          return {
+            data: Matrix.set(nextPoint, currentValue, nextData),
+            commit,
+          };
+        }
+
         commit = [
           ...commit,
           {

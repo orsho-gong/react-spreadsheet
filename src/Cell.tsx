@@ -19,7 +19,6 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
   selected,
   active,
   dragging,
-  useReadOnlyStyle,
   mode,
   data,
   select,
@@ -80,7 +79,7 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
     <td
       ref={rootRef}
       className={classnames("Spreadsheet__cell", data?.className, {
-        "Spreadsheet__cell--readonly": data?.readOnly && useReadOnlyStyle,
+        "Spreadsheet__cell--readonly": data?.readOnly && data.useReadOnlyStyle,
       })}
       onMouseOver={handleMouseOver}
       onMouseDown={handleMouseDown}
@@ -165,9 +164,6 @@ export const enhance = (
         : null;
     });
 
-    const useReadOnlyStyle =
-      props.useReadOnlyStyle === undefined ? true : props.useReadOnlyStyle;
-
     return (
       <CellComponent
         {...props}
@@ -177,7 +173,6 @@ export const enhance = (
         dragging={dragging}
         mode={mode}
         data={data}
-        useReadOnlyStyle={useReadOnlyStyle}
         select={select}
         activate={activate}
         setCellDimensions={setCellDimensions}
