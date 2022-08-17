@@ -29,7 +29,6 @@ const EXAMPLE_PROPS: Types.CellComponentProps = {
   active: false,
   copied: false,
   dragging: false,
-  useReadOnlyStyle: true,
   mode: "view",
   data: { value: null },
   select: MOCK_SELECT,
@@ -46,6 +45,11 @@ const EXAMPLE_DATA_VIEWER_PROPS: Types.DataViewerProps = {
   setCellData: MOCK_SET_CELL_DATA,
 };
 const EXAMPLE_READ_ONLY_DATA: Types.CellBase = { value: null, readOnly: true };
+const EXAMPLE_READ_ONLY_DATA_NO_STYLE: Types.CellBase = {
+  value: null,
+  readOnly: true,
+  useReadOnlyStyle: false,
+};
 const EXAMPLE_DATA_WITH_CLASS_NAME: Types.CellBase = {
   value: null,
   className: "example",
@@ -90,20 +94,14 @@ describe("<Cell />", () => {
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);
   });
   test("renders without read only", () => {
-    render(
-      <Cell
-        {...EXAMPLE_PROPS}
-        useReadOnlyStyle={false}
-        data={EXAMPLE_READ_ONLY_DATA}
-      />
-    );
+    render(<Cell {...EXAMPLE_PROPS} data={EXAMPLE_READ_ONLY_DATA_NO_STYLE} />);
     const element = document.querySelector(
       ".Spreadsheet__cell.Spreadsheet__cell--readonly"
     );
     expect(element).toBeNull();
     expect(MOCK_DATA_VIEWER).toBeCalledTimes(1);
     expect(MOCK_DATA_VIEWER).toBeCalledWith(
-      { ...EXAMPLE_DATA_VIEWER_PROPS, cell: EXAMPLE_READ_ONLY_DATA },
+      { ...EXAMPLE_DATA_VIEWER_PROPS, cell: EXAMPLE_READ_ONLY_DATA_NO_STYLE },
       {}
     );
     expect(MOCK_SET_CELL_DIMENSIONS).toBeCalledTimes(0);

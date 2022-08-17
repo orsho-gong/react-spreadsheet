@@ -75,11 +75,16 @@ export const Cell: React.FC<Types.CellComponentProps> = ({
     DataViewer = data.DataViewer;
   }
 
+  let readonlyStyle: boolean | undefined = false;
+  if (typeof data?.useReadOnlyStyle === "undefined" || data.useReadOnlyStyle) {
+    readonlyStyle = data?.readOnly;
+  }
+
   return (
     <td
       ref={rootRef}
       className={classnames("Spreadsheet__cell", data?.className, {
-        "Spreadsheet__cell--readonly": data?.readOnly && data.useReadOnlyStyle,
+        "Spreadsheet__cell--readonly": readonlyStyle,
       })}
       onMouseOver={handleMouseOver}
       onMouseDown={handleMouseDown}
